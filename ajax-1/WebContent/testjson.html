@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var jsonObject={"name":"lg",
+					"age":19,
+					"address":{"city":"Beijing","school":"jiaoda"},
+					"teaching":function(){
+						alert("java ee,android……");
+					}
+	};
+	//alert(jsonObject.name);
+	//jsonObject.teaching();
+	
+	var jsonStr="{'name':'lg','age':19}";
+	
+	//把一个字符串转为json对象
+	//alert(jsonStr.name);
+	
+	//使用 eval（）方法
+	var testStr="alert('hello eval')";
+	//alert(testStr);
+	
+	//eval可以把一个字符串转为本地的js代码来执行
+	eval(testStr);
+	
+	//把json字符串转为JSON对象
+	var testObject =eval("("+jsonStr+")");
+	alert(testObject.age);
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
