@@ -30,7 +30,7 @@ object rank {
      * @return 源url,终url
      */
     def getFromMySqlTable(sqlContext: SQLContext): RDD[(String, String)] = {
-      val url = "jdbc:mysql://202.117.16.188/search_engine?useUnicode=true&characterEncoding=UTF-8"
+      val url = "jdbc:mysql://databaseip/databasename?useUnicode=true&characterEncoding=UTF-8"
       val jdbcDF = sqlContext.read.format("jdbc").options(Map("url" -> url, "driver" -> "com.mysql.jdbc.Driver", "dbtable" -> "Search_Engine_Test_ZXL_2", "user" -> "root", "password" -> "root")).load()
       jdbcDF.registerTempTable("tempTable")
       val row = sqlContext.sql("select URL, URLList from tempTable where URLList is not null and URLList!=\"\"").rdd.map(x => (x(0).toString, x(1).toString)).map(x => {
@@ -80,7 +80,7 @@ object rank {
       prop.put("user", "root")
       prop.put("password", "root")
       prop.put("driver", "com.mysql.jdbc.Driver")
-      vertexDataFrame.write.mode("append").jdbc("jdbc:mysql://202.117.16.188:3306/search_engine?useUnicode=true&characterEncoding=UTF-8", "search_engine.PAGERANK_LG", prop)
+      vertexDataFrame.write.mode("append").jdbc("jdbc:mysql://databaseip/databasename?useUnicode=true&characterEncoding=UTF-8", "search_engine.PAGERANK_LG", prop)
 
     }
     /**
@@ -108,7 +108,7 @@ object rank {
       prop.put("password", "root")
       prop.put("driver", "com.mysql.jdbc.Driver")
       //将数据追加到数据库
-      Top500EdgeDataFrame.write.mode("append").jdbc("jdbc:mysql://202.117.16.188:3306/search_engine?useUnicode=true&characterEncoding=UTF-8", "search_engine.TOP500_EDGE_LG", prop)
+      Top500EdgeDataFrame.write.mode("append").jdbc("jdbc:mysql://databaseip/databasename?useUnicode=true&characterEncoding=UTF-8", "search_engine.TOP500_EDGE_LG", prop)
       }
 
     val pairurls = getFromMySqlTable(sqlContext)
